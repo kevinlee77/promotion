@@ -18,7 +18,7 @@ spec:
       containers:
         - name: promotion
 #          image: username/promotion:latest
-          image: admin27.azurecr.io/promotion:latest
+          image: admin270.azurecr.io/promotion:latest
           ports:
             - containerPort: 8080
           readinessProbe:
