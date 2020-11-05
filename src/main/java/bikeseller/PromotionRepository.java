@@ -1,4 +1,4 @@
-package phoneseller;
+package bikeseller;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 

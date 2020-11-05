@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: promotion
-  namespace: pp82
+  namespace: bike
   labels:
     app: promotion
 spec:
@@ -18,7 +18,7 @@ spec:
       containers:
         - name: promotion
 #          image: username/promotion:latest
-          image: admin37.azurecr.io/promotion:latest
+          image: admin27.azurecr.io/promotion:latest
           ports:
             - containerPort: 8080
           readinessProbe:

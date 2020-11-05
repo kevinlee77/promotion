@@ -1,4 +1,4 @@
-package phoneseller;
+package bikeseller;
 
 public class PayCompleted extends AbstractEvent {
 

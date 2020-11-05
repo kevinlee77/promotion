@@ -1,4 +1,4 @@
-package phoneseller;
+package bikeseller;
 
 import javax.persistence.*;
 import org.springframework.beans.BeanUtils;
@@ -25,8 +25,10 @@ public class Promotion {
         System.out.println(this.toString());
         System.out.println("promotion persist");
 
-        if("Payed".equals(process) && point > 0){
+        if("Payed".equals(process)){
             // 결제 완료된 이벤트를 통해 프로모션 제공 완료 처리
+            setProcess("PromotionCompleted");
+            //setPoint((double) getOrderId());
 
             PromoCompleted promoCompleted = new PromoCompleted();
             BeanUtils.copyProperties(this, promoCompleted);
@@ -34,6 +36,9 @@ public class Promotion {
 
             System.out.println("*** 프로모션 포인트 제공 완료 ***");
         } else if("PayCancelled".equals(process)){
+            setProcess("PromotionCancelled");
+            //setPoint((double) getOrderId());
+
             PromoCancelled promoCancelled = new PromoCancelled();
             BeanUtils.copyProperties(this, promoCancelled);
             promoCancelled.publish();

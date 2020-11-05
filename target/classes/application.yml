@@ -25,10 +25,10 @@ spring:
       bindings:
         event-in:
           group: promotion
-          destination: phoneseller
+          destination: bikeseller
           contentType: application/json
         event-out:
-          destination: phoneseller
+          destination: bikeseller
           contentType: application/json
 
 #feign:
@@ -66,10 +66,10 @@ spring:
       bindings:
         event-in:
           group: promotion
-          destination: phoneseller
+          destination: bikeseller
           contentType: application/json
         event-out:
-          destination: phoneseller
+          destination: bikeseller
           contentType: application/json
 
 #feign:

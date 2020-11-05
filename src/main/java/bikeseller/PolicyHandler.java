@@ -1,6 +1,6 @@
-package phoneseller;
+package bikeseller;
 
-import phoneseller.config.kafka.KafkaProcessor;
+import bikeseller.config.kafka.KafkaProcessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +29,10 @@ public class PolicyHandler{
 
             Promotion promotion = new Promotion();
             promotion.setOrderId(payCompleted.getOrderId());
-            if(payCompleted.getPrice() != null && payCompleted.getPrice() > 0) {
-                promotion.setPoint(payCompleted.getPrice() * 0.1);
+            //if(payCompleted.getPrice() != null && payCompleted.getPrice() > 0) {
+                promotion.setPoint((double) 100);
                 promotion.setProcess("Payed");
-            }
+            //}
             promotionRepository.save(promotion);
 
             System.out.println("##### listener PayComplete : " + payCompleted.toJson());

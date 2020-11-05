@@ -1,6 +1,6 @@
-package phoneseller;
+package bikeseller;
 
-public class PromoCancelled extends AbstractEvent {
+public class PromoCompleted extends AbstractEvent {
 
     private Long id;
     private Long orderId;

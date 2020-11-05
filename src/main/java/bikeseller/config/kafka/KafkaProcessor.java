@@ -1,4 +1,4 @@
-package phoneseller.config.kafka;
+package bikeseller.config.kafka;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
