@@ -21,15 +21,18 @@ public class PolicyHandler{
     }
 
     @StreamListener(KafkaProcessor.INPUT)
-    public void wheneverPayCompleted_PayComplete(@Payload PayCompleted payCompleted){
-        System.out.println("promotion_policy_wheneverPayCompleted_PayComplete");
-        System.out.println(payCompleted.toJson());
+    public void wheneverPayCompleted_PointSave(@Payload PayCompleted payCompleted){
+
+        // 비동기 방식으로 카프카 리스너를 통해 결제가 완료된 이벤트를 파악 -> 프로모션 포인트 제공
         if(payCompleted.isMe()){
-            System.out.println("결제 완료 후 포인트 제공하기 위해 어쩌구ㅜ 비동기ㅠ");
+            System.out.println("promotion_policy_wheneverPayCompleted_PointSave");
 
             Promotion promotion = new Promotion();
             promotion.setOrderId(payCompleted.getOrderId());
-            promotion.setPoint((double) 999999);
+            if(payCompleted.getPrice() != null && payCompleted.getPrice() > 0) {
+                promotion.setPoint(payCompleted.getPrice() * 0.1);
+                promotion.setProcess("Payed");
+            }
             promotionRepository.save(promotion);
 
             System.out.println("##### listener PayComplete : " + payCompleted.toJson());

@@ -15,34 +15,50 @@ public class Promotion {
     private Double point;
     private String process;
 
+    @PrePersist
+    public void onPrePersist() {
+        System.out.println("promotion pre persist");
+    }
+
     @PostPersist
     public void onPostPersist(){
         System.out.println(this.toString());
         System.out.println("promotion persist");
-        if(point > 0){
-            System.out.println("비동기어쩌구 결제해서 비동기로 포인트생성~");
-//            PromoCompleted promoCompleted = new PromoCompleted();
-//            BeanUtils.copyProperties(this, promoCompleted);
-//            promoCompleted.publish();
 
-        } else {
-            System.out.println("동기화로 결제취소해서 프로모취소~");
-//            PromoCancelled promoCancelled = new PromoCancelled();
-//            BeanUtils.copyProperties(this, promoCancelled);
-//            promoCancelled.publish();
+        if("Payed".equals(process) && point > 0){
+            // 결제 완료된 이벤트를 통해 프로모션 제공 완료 처리
 
+            PromoCompleted promoCompleted = new PromoCompleted();
+            BeanUtils.copyProperties(this, promoCompleted);
+            promoCompleted.publish();
+
+            System.out.println("*** 프로모션 포인트 제공 완료 ***");
+        } else if("PayCancelled".equals(process)){
+            PromoCancelled promoCancelled = new PromoCancelled();
+            BeanUtils.copyProperties(this, promoCancelled);
+            promoCancelled.publish();
+            System.out.println("*** 결제 취소로 인한 프로모션 포인트 제공 회수 ***");
         }
     }
 
     @PreUpdate
     public void onPreUpdate(){
-        System.out.println("promotion update");
+        System.out.println("promotion pre update");
+    }
+
+    @PostUpdate
+    public void onPostUpdate(){
+        System.out.println("promotion post update");
+    }
+
+    @PreRemove
+    public void onPreRemove(){
+        System.out.println("promotion pre remove");
     }
 
     @PostRemove
     public void onPostRemove(){
-
-        System.out.println("promotion remove");
+        System.out.println("promotion post remove");
     }
 
     public Long getId() {
