@@ -5,6 +5,7 @@ public class PromoCompleted extends AbstractEvent {
     private Long id;
     private Long orderId;
     private Double point;
+    private String process;
 
     public Long getId() {
         return id;
@@ -26,5 +27,13 @@ public class PromoCompleted extends AbstractEvent {
 
     public void setPoint(Double point) {
         this.point = point;
+    }
+
+    public String getProcess() {
+        return process;
+    }
+
+    public void setProcess(String process) {
+        this.process = process;
     }
 }

@@ -13,22 +13,23 @@ public class Promotion {
     private Long id;
     private Long orderId;
     private Double point;
+    private String process;
 
     @PostPersist
     public void onPostPersist(){
-
+        System.out.println(this.toString());
         System.out.println("promotion persist");
         if(point > 0){
             System.out.println("비동기어쩌구 결제해서 비동기로 포인트생성~");
-            PromoCompleted promoCompleted = new PromoCompleted();
-            BeanUtils.copyProperties(this, promoCompleted);
-            promoCompleted.publish();
+//            PromoCompleted promoCompleted = new PromoCompleted();
+//            BeanUtils.copyProperties(this, promoCompleted);
+//            promoCompleted.publish();
 
         } else {
             System.out.println("동기화로 결제취소해서 프로모취소~");
-            PromoCancelled promoCancelled = new PromoCancelled();
-            BeanUtils.copyProperties(this, promoCancelled);
-            promoCancelled.publish();
+//            PromoCancelled promoCancelled = new PromoCancelled();
+//            BeanUtils.copyProperties(this, promoCancelled);
+//            promoCancelled.publish();
 
         }
     }
@@ -66,7 +67,21 @@ public class Promotion {
         this.point = point;
     }
 
+    public String getProcess() {
+        return process;
+    }
 
+    public void setProcess(String process) {
+        this.process = process;
+    }
 
-
+    @Override
+    public String toString() {
+        return "Promotion{" +
+                "id=" + id +
+                ", orderId=" + orderId +
+                ", point=" + point +
+                ", process=" + process +
+                '}';
+    }
 }

@@ -23,6 +23,7 @@ public class PolicyHandler{
     @StreamListener(KafkaProcessor.INPUT)
     public void wheneverPayCompleted_PayComplete(@Payload PayCompleted payCompleted){
         System.out.println("promotion_policy_wheneverPayCompleted_PayComplete");
+        System.out.println(payCompleted.toJson());
         if(payCompleted.isMe()){
             System.out.println("결제 완료 후 포인트 제공하기 위해 어쩌구ㅜ 비동기ㅠ");
 
