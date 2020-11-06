@@ -35,17 +35,17 @@ public class Promotion {
             promoCompleted.publishAfterCommit();
 
             System.out.println("*** 프로모션 포인트 제공 완료 ***");
+
         } else if("PayCancelled".equals(process)){
             setProcess("PromotionCancelled");
             //setPoint((double) getOrderId());
 
-            try {
-                Thread.currentThread().sleep((long) (400 + Math.random() * 220));
-                System.out.println("***** 결재 완료 *****");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
+            //try {
+            //    Thread.currentThread().sleep((long) (400 + Math.random() * 220));
+            //} catch (InterruptedException e) {
+            //    e.printStackTrace();
+            //}
+
             PromoCancelled promoCancelled = new PromoCancelled();
             BeanUtils.copyProperties(this, promoCancelled);
             promoCancelled.publishAfterCommit();
