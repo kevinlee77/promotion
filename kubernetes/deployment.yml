@@ -21,6 +21,12 @@ spec:
           image: admin270.azurecr.io/promotion:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: configurl
+              valueFrom:
+                configMapKeyRef:
+                  name: apiurl
+                  key: url
           readinessProbe:
             httpGet:
               path: '/actuator/health'
@@ -29,14 +35,19 @@ spec:
             timeoutSeconds: 2
             periodSeconds: 5
             failureThreshold: 10
+#          livenessProbe:
+#            httpGet:
+#              path: '/actuator/health'
+#              port: 8080
+#            initialDelaySeconds: 120
+#            timeoutSeconds: 2
+#            periodSeconds: 5
+#            failureThreshold: 5
           livenessProbe:
-            httpGet:
-              path: '/actuator/health'
-              port: 8080
-            initialDelaySeconds: 120
-            timeoutSeconds: 2
+            tcpSocket:
+              port: 8081
+            initialDelaySeconds: 5
             periodSeconds: 5
-            failureThreshold: 5
           resources:
             limits:
               cpu: 500m
